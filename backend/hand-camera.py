@@ -1,6 +1,17 @@
 import cv2
 import mediapipe as mp
 import numpy as np
+from socketio import Client
+import uuid
+
+# Initialize SocketIO client
+sio = Client()
+try:
+    sio.connect('http://localhost:5000')
+    print("Connected to server")
+except Exception as e:
+    print(f"Failed to connect to server: {e}")
+hand_id = str(uuid.uuid4())
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
@@ -48,12 +59,25 @@ while True:
             # Draw landmarks and connections
             mp_draw.draw_landmarks(img, hand_landmarks, mp_hands.HAND_CONNECTIONS)
             
-            # Store 21 landmark points
+            # Store and format landmark points for WebSocket
+            landmarks_data = []
             for landmark in hand_landmarks.landmark:
-                x = landmark.x
-                y = landmark.y
-                z = landmark.z
-                hand_points.append([x, y, z])
+                landmarks_data.append({
+                    'x': float(landmark.x),
+                    'y': float(landmark.y),
+                    'z': float(landmark.z)
+                })
+                hand_points.append([landmark.x, landmark.y, landmark.z])
+            
+            # Send landmarks to server
+            try:
+                print(f"\rSending {len(landmarks_data)} landmarks", end='')  # Add debug print
+                sio.emit('hand_landmarks', {
+                    'hand_id': hand_id,
+                    'landmarks': landmarks_data
+                })
+            except Exception as e:
+                print(f"\nError sending data: {e}")
     
     # Display the frame
     cv2.imshow('Hand Tracking', img)
@@ -66,3 +90,5 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 hands.close()
+if sio.connected:
+    sio.disconnect()
