@@ -1,10 +1,14 @@
 from flask import Flask
 from flask_socketio import SocketIO, emit
 from collections import deque
+from dotenv import load_dotenv 
+import os
 import json
 
+load_dotenv()
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
+app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'fallback_dev_key')
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Store last 100 frames of hand data for hand
