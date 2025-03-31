@@ -5,11 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start animation loop
     handModel.animate();
 
-    // Connect socket client to hand model
-    socketClient.onLandmarksUpdate = (landmarks) => {
-        handModel.updateHandPosition(landmarks);
-    };
-
     // UI Controls
     document.getElementById('connectBtn').addEventListener('click', () => {
         if (!socketClient.connected) {
@@ -19,15 +14,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('toggleTracking').addEventListener('click', function() {
+    const trackingBtn = document.getElementById('toggleTracking');
+    trackingBtn.addEventListener('click', function() {
         if (this.textContent === 'Start Tracking') {
             socketClient.onLandmarksUpdate = (landmarks) => {
                 handModel.updateHandPosition(landmarks);
             };
             this.textContent = 'Stop Tracking';
+            this.classList.add('active');
         } else {
             socketClient.onLandmarksUpdate = null;
             this.textContent = 'Start Tracking';
+            this.classList.remove('active');
         }
     });
 });

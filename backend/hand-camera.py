@@ -30,6 +30,9 @@ while True:
     if not success:
         print("Failed to capture frame")
         break
+
+    # Flip the image horizontally (across the Y-axis)
+    img = cv2.flip(img, 1)
         
     # Convert BGR image to RGB
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -64,10 +67,10 @@ while True:
             for landmark in hand_landmarks.landmark:
                 landmarks_data.append({
                     'x': float(landmark.x),
-                    'y': float(landmark.y),
+                    'y': float(landmark.y),  # Flip back to original Y-axis
                     'z': float(landmark.z)
                 })
-                hand_points.append([landmark.x, landmark.y, landmark.z])
+                hand_points.append([landmark.x, landmark.y, landmark.z])  # Flip back to original Y-axis
             
             # Send landmarks to server
             try:

@@ -1,9 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #ffffff;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #0a0d13;
+    color: #e6edf3;
+    overflow: hidden;
 }
 
 .container {
@@ -12,40 +13,144 @@ body {
 }
 
 .sidebar {
-    width: 300px;
-    background-color: #2a2a2a;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    width: 320px;
+    background: #10151c;
+    padding: 24px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-#handCanvas {
-    flex-grow: 1;
-    position: relative;
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/noise.png'); /* Noise texture */
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.sidebar h2 {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 24px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 16px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
 .controls {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
 }
 
 button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e6edf3;
+    font-size: 0.95rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.2s ease;
+    position: relative;
+    backdrop-filter: blur(8px);
+}
+
+button::before {
+    display: none;
 }
 
 button:hover {
-    background-color: #45a049;
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+button.active {
+    background: rgba(63, 185, 80, 0.15);
+    border-color: rgba(63, 185, 80, 0.4);
+    color: #3fb950;
+}
+
+button.active:hover {
+    background: rgba(63, 185, 80, 0.2);
+    border-color: rgba(63, 185, 80, 0.5);
 }
 
 .status {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #333;
-    border-radius: 5px;
+    margin-top: 24px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: #a3b3c2;
+    line-height: 1.6;
+    backdrop-filter: blur(10px);
+}
+
+.status p {
+    margin: 8px 0;
+}
+
+#connectionStatus {
+    display: inline-block;
+    font-weight: 600;
+    color: #f85149;  /* Default red for disconnected */
+    transition: color 0.3s ease;
+}
+
+#connectionStatus.connected {
+    color: #3fb950;  /* Green for connected */
+}
+
+#handCanvas {
+    flex-grow: 1;
+    position: relative;
+    background: #0a0d13;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.8);
+}
+
+footer {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #768390;
+    margin-top: 24px;
+    letter-spacing: 0.2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0d13;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2d3139;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3d424d;
 }

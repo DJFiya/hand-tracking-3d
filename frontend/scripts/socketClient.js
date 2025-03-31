@@ -10,13 +10,19 @@ class HandSocketClient {
         
         this.socket.on('connect', () => {
             this.connected = true;
-            document.getElementById('connectionStatus').textContent = 'Connected';
+            const statusEl = document.getElementById('connectionStatus');
+            statusEl.textContent = 'Connected';
+            // Force remove and re-add to trigger the style
+            statusEl.classList.remove('connected');
+            setTimeout(() => statusEl.classList.add('connected'), 0);
             console.log('Connected to server');
         });
 
         this.socket.on('disconnect', () => {
             this.connected = false;
-            document.getElementById('connectionStatus').textContent = 'Disconnected';
+            const statusEl = document.getElementById('connectionStatus');
+            statusEl.textContent = 'Disconnected';
+            statusEl.classList.remove('connected');
             console.log('Disconnected from server');
         });
 

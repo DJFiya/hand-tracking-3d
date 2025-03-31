@@ -1,0 +1,55 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Backend Server",
+            "type": "shell",
+            "command": "python",
+            "args": ["backend/server.py"],
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Run Hand Camera",
+            "type": "shell",
+            "command": "python",
+            "args": ["backend/hand-camera.py"],
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Run HTTP Server",
+            "type": "shell",
+            "command": "python",
+            "args": ["-m", "http.server", "8000"],
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Run All",
+            "dependsOn": [
+                "Run Backend Server",
+                "Run Hand Camera",
+                "Run HTTP Server"
+            ],
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}

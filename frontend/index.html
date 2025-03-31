@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Hand Tracking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Three.js GLTFLoader - downloaded locally -->
-    <script src="scripts/GLTFLoader.js"></script>
     <!-- Socket.IO -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
 </head>
@@ -20,10 +21,13 @@
                 <button id="connectBtn">Connect to Server</button>
                 <button id="toggleTracking">Start Tracking</button>
                 <div class="status">
-                    <p>Connection: <span id="connectionStatus">Disconnected</span></p>
-                    <p>Frames: <span id="frameCount">0</span></p>
+                    <p>Status: <span id="connectionStatus">Disconnected</span></p>
+                    <p>Processed Frames: <span id="frameCount">0</span></p>
                 </div>
             </div>
+            <footer>
+                Hand Tracking 3D v1.0
+            </footer>
         </div>
         <div id="handCanvas"></div>
     </div>
